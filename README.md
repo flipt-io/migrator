@@ -6,6 +6,18 @@ It works by exporting the feature flags from the source into a set of `*.feature
 
 ## Usage
 
+```shell
+usage: flipt-migrate [-h] [--source {LaunchDarkly}] [--out OUT]
+
+Migrate from a feature flag source to Flipt.
+
+options:
+  -h, --help            show this help message and exit
+  --source {LaunchDarkly}
+                        The source to migrate from.
+  --out OUT             The location to export Flipt data. Defaults to current directory.
+```
+
 ## Sources
 
 ### LaunchDarkly

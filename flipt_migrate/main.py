@@ -6,13 +6,14 @@ from exporter import export_to_yaml
 
 
 def main():
+    sources = ["LaunchDarkly"]  # "Split", "Unleash", "Flagsmith"]
     parser = argparse.ArgumentParser(
         description="Migrate from a feature flag source to Flipt."
     )
     parser.add_argument(
         "--source",
         type=str,
-        choices=["LaunchDarkly", "Split", "Unleash", "Flagsmith"],
+        choices=sources,
         help="The source to migrate from.",
     )
     parser.add_argument(
@@ -36,7 +37,7 @@ def main():
     else:
         competitor = questionary.select(
             "Source:",
-            choices=["LaunchDarkly", "Split", "Unleash", "Flagsmith"],
+            choices=sources,
         ).ask()
 
     if competitor == "LaunchDarkly":
@@ -59,7 +60,7 @@ def main():
         return
 
     export_to_yaml(data, path)
-    print(" ✅ Migration completed successfully.")
+    print("✅ Migration completed successfully.")
 
 
 if __name__ == "__main__":
