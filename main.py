@@ -16,9 +16,13 @@ def main():
     if competitor == 'LaunchDarkly':
         api_key = os.getenv('LAUNCHDARKLY_API_KEY')
         if not api_key:
-            api_key = questionary.password("LaunchDarkly API Key:?").ask() or ""
+            api_key = questionary.password("LaunchDarkly API Key:").ask() or ""
 
-        transformer = launchdarkly.Transformer(api_key)
+        project_key = os.getenv('LAUNCHDARKLY_PROJECT_KEY')
+        if not project_key:
+            project_key = questionary.text("LaunchDarkly Project Key:", "default").ask()
+
+        transformer = launchdarkly.Transformer(api_key, project_key)
     else :
         print('Unsupported source.')
         return

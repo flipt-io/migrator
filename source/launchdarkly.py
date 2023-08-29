@@ -4,13 +4,14 @@ from models.flipt import Documents, Document, Flag, FlagType, Variant, Segment, 
 class Transformer:
     BASE_URL = 'https://app.launchdarkly.com/api/v2'
 
-    def __init__(self, api_key):
+    def __init__(self, api_key, project_key=None):
         self.api_key = api_key
+        self.project_key = project_key or 'default'
 
     def transform(self) -> Documents:
         headers = {'Authorization': self.api_key}
 
-        response = requests.get(f"{self.BASE_URL}/flags/default", headers=headers)
+        response = requests.get(f"{self.BASE_URL}/flags/{self.project_key}", headers=headers)
         if response.status_code != 200:
             raise Exception(f"Request to LaunchDarkly API failed with status code: {response.status_code}")
 
@@ -20,7 +21,7 @@ class Transformer:
         # environments is a map of env names to segments
         environments: dict[str, list[Segment]] = {}
         for f in data['items']:
-            response = requests.get(f"{self.BASE_URL}/flags/default/{f['key']}", headers=headers)
+            response = requests.get(f"{self.BASE_URL}/flags/{self.project_key}/{f['key']}", headers=headers)
             if response.status_code != 200:
                 raise Exception(f"Request to LaunchDarkly API failed with status code: {response.status_code}")
             
@@ -50,7 +51,7 @@ class Transformer:
                 if environment not in environments:
                     environments[environment] = []
 
-                    response = requests.get(f"{self.BASE_URL}/segments/default/{environment}", headers=headers)
+                    response = requests.get(f"{self.BASE_URL}/segments/{self.project_key}/{environment}", headers=headers)
 
                     if response.status_code != 200:
                         raise Exception(f"Request to LaunchDarkly API failed with status code: {response.status_code}")
