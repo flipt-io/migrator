@@ -1,6 +1,6 @@
 import requests
 from models.flipt import (
-    Documents,
+    Collection,
     Document,
     Flag,
     FlagType,
@@ -21,8 +21,8 @@ class Transformer:
         self.api_key = api_key
         self.project_key = project_key or "default"
 
-    def transform(self) -> Documents:
-        documents = Documents(namespaces={})
+    def transform(self) -> Collection:
+        out = Collection(namespaces={})
 
         headers = {"Authorization": self.api_key, "Content-Type": "application/json"}
 
@@ -38,7 +38,7 @@ class Transformer:
         # environment loop
         for environment in environment_data["items"]:
             env_key = environment["key"]
-            documents.namespaces[env_key] = Document(flags=[], segments=[])
+            out.namespaces[env_key] = Document(flags=[], segments=[])
 
             # get all global segments for this environment
             response = requests.get(
@@ -74,7 +74,7 @@ class Transformer:
                         )
 
                 # add global segment to namespace
-                documents.namespaces[env_key].segments.append(segment)
+                out.namespaces[env_key].segments.append(segment)
 
         # get all flags
         response = requests.get(
@@ -153,7 +153,7 @@ class Transformer:
                         )
 
                     # add segment to namespace
-                    documents.namespaces[env_key].segments.append(segment)
+                    out.namespaces[env_key].segments.append(segment)
 
                     # add rule to flag with segment
                     distributions: list[Distribution] = []
@@ -182,6 +182,6 @@ class Transformer:
                     )
 
                 # add flag to namespace
-                documents.namespaces[env_key].flags.append(flag)
+                out.namespaces[env_key].flags.append(flag)
 
-        return documents
+        return out

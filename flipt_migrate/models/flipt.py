@@ -66,5 +66,5 @@ class Document(BaseModel):
     segments: list[Segment] | None
 
 
-class Documents(BaseModel):
+class Collection(BaseModel):
     namespaces: dict[str, Document] | None

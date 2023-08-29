@@ -1,6 +1,6 @@
-from models.flipt import Documents
+from models.flipt import Collection
 
 
 class Transformer:
-    def transform(self) -> Documents:
+    def transform(self) -> Collection:
         pass

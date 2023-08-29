@@ -4,16 +4,18 @@ import argparse
 from source import launchdarkly
 from exporter import export_to_yaml
 
+# TODO: Add support for other sources
+SOURCES = ["LaunchDarkly"]
+
 
 def main():
-    sources = ["LaunchDarkly"]  # "Split", "Unleash", "Flagsmith"]
     parser = argparse.ArgumentParser(
         description="Migrate from a feature flag source to Flipt."
     )
     parser.add_argument(
         "--source",
         type=str,
-        choices=sources,
+        choices=SOURCES,
         help="The source to migrate from.",
     )
     parser.add_argument(
@@ -37,7 +39,7 @@ def main():
     else:
         competitor = questionary.select(
             "Source:",
-            choices=sources,
+            choices=SOURCES,
         ).ask()
 
     if competitor == "LaunchDarkly":
