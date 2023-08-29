@@ -7,8 +7,8 @@ class Variant(BaseModel):
     description: str | None
 
 class FlagType(Enum):
-    variant = 'FLAG_TYPE_VARIANT'
-    boolean = 'FLAG_TYPE_BOOLEAN'
+    variant = 'VARIANT_FLAG_TYPE'
+    boolean = 'BOOLEAN_FLAG_TYPE'
 
 class Flag(BaseModel):
     key: str
@@ -31,8 +31,8 @@ class Constraint(BaseModel):
     type: ConstraintComparisonType = ConstraintComparisonType.string
 
 class SegmentMatchType(Enum):
-    all = 'MATCH_TYPE_ALL'
-    any = 'MATCH_TYPE_ANY'
+    all = 'ALL_MATCH_TYPE'
+    any = 'ANY_MATCH_TYPE'
 
 class Segment(BaseModel):
     key: str
