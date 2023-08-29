@@ -6,7 +6,7 @@ It works by exporting the feature flags from the source into a set of `*.feature
 
 ## Disclaimer
 
-:warning: This tool is best effort and may not work for all use cases. Because of the differences in how feature flags are implemented across different sources, it is likely that some manual work will be required to get the feature flags into a state that works with Flipt after they have been exported.
+:warning: This tool is best effort and may not work for all use cases. Because of the differences in how feature flags are implemented across different sources and APIs, it is likely that some manual work will be required to get the feature flags into a state that works with Flipt after they have been exported.
 
 The main goal of this tool is to make it easier to get started with Flipt by reducing the amount of manual work required to migrate from another source.
 
@@ -14,7 +14,7 @@ No guarantees are made about the correctness of the exported feature flags. It i
 
 ## Legal
 
-This tool is not affiliated with or endorsed by any of the sources it supports. All trademarks are the property of their respective owners.
+:scale: This tool is not affiliated with or endorsed by any of the sources it supports. All trademarks are the property of their respective owners.
 
 ## Usage
 
@@ -45,7 +45,7 @@ To export feature flags from LaunchDarkly, you will need to set the following en
 
 To add a new source, you will need to create a new class that inherits from [`Transformer`](./flipt_migrate/transformer.py) and implements the `transform` method. The `transform` method should return a `Collection` which maps to the Flipt [state model](https://www.flipt.io/docs/configuration/storage#defining-flag-state).
 
-Once you have created the new source, you will need to add it to the `SOURCES` map and load the necessary `Transformer` in [`main.py`](./flipt_migrate/main.py).
+Once you have created the new source, you will need to add it to the `SOURCES` list and load the necessary `Transformer` in [`main.py`](./flipt_migrate/main.py).
 
 We plan to make this process easier in the future by allowing sources to be loaded dynamically.
 
@@ -63,4 +63,12 @@ poetry install
 
 ```shell
 poetry run python flipt_migrate/main.py
+```
+
+### Format/Lint
+
+We use [black](https://black.readthedocs.io/en/stable/) for linting and formatting.
+
+```shell
+poetry run black .
 ```
