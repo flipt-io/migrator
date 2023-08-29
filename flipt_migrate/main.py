@@ -1,20 +1,43 @@
 import os
 import questionary
+import argparse
 from source import launchdarkly
 from exporter import export_to_yaml
 
 
 def main():
-    path = questionary.path(
-        "Location to export Flipt data:", ".", only_directories=True
-    ).ask()
-    transformer = None
-    data = None
-
-    competitor = questionary.select(
-        "Source:",
+    parser = argparse.ArgumentParser(
+        description="Migrate from a feature flag source to Flipt."
+    )
+    parser.add_argument(
+        "--source",
+        type=str,
         choices=["LaunchDarkly", "Split", "Unleash", "Flagsmith"],
-    ).ask()
+        help="The source to migrate from.",
+    )
+    parser.add_argument(
+        "--out",
+        type=str,
+        help="The location to export Flipt data.",
+    )
+    args = parser.parse_args()
+
+    if args.out is not None:
+        path = args.out
+    else:
+        path = questionary.path(
+            "Location to export Flipt data:", ".", only_directories=True
+        ).ask()
+
+    transformer = None
+
+    if args.source is not None:
+        competitor = args.source
+    else:
+        competitor = questionary.select(
+            "Source:",
+            choices=["LaunchDarkly", "Split", "Unleash", "Flagsmith"],
+        ).ask()
 
     if competitor == "LaunchDarkly":
         api_key = os.getenv("LAUNCHDARKLY_API_KEY")
