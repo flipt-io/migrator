@@ -14,7 +14,7 @@ No guarantees are made about the correctness of the exported feature flags. It i
 
 ## Legal
 
-:scale: This tool is not affiliated with or endorsed by any of the sources it supports. All trademarks are the property of their respective owners.
+:copyright: This tool is not affiliated with or endorsed by any of the sources it supports. All trademarks are the property of their respective owners.
 
 ## Usage
 
