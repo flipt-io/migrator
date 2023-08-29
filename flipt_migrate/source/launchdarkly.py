@@ -26,6 +26,7 @@ class Transformer:
 
         headers = {"Authorization": self.api_key, "Content-Type": "application/json"}
 
+        # TODO: support pagination
         response = requests.get(
             f"{self.BASE_URL}/projects/{self.project_key}/environments", headers=headers
         )
@@ -41,6 +42,7 @@ class Transformer:
             out.namespaces[env_key] = Document(flags=[], segments=[])
 
             # get all global segments for this environment
+            # TODO: support pagination
             response = requests.get(
                 f"{self.BASE_URL}/segments/{self.project_key}/{env_key}",
                 headers=headers,
@@ -77,6 +79,7 @@ class Transformer:
                 out.namespaces[env_key].segments.append(segment)
 
         # get all flags
+        # TODO: support pagination
         response = requests.get(
             f"{self.BASE_URL}/flags/{self.project_key}", headers=headers
         )
