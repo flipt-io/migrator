@@ -61,5 +61,5 @@ def run():
         print(f"- {f}")
 
 
-if __name__ == "__main__":
+def main():
     run()
