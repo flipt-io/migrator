@@ -45,9 +45,9 @@ To export feature flags from LaunchDarkly, you will need to set the following en
 
 To add a new source, you will need to create a new class that inherits from [`Transformer`](./flipt_migrate/transformer.py) and implements the `transform` method. The `transform` method should return a `Collection` which maps to the Flipt [state model](https://www.flipt.io/docs/configuration/storage#defining-flag-state).
 
-Once you have created the new source, you will need to add it to the `SOURCES` list and load the necessary `Transformer` in [`main.py`](./flipt_migrate/main.py).
+Once you have created the new source, you will need to add it to the `SOURCES` dictionary to load the necessary `Transformer` in [`main.py`](./flipt_migrate/main.py).
 
-We plan to make this process easier in the future by allowing sources to be loaded dynamically.
+The `SOURCES` dictionary maps the source name to function which returns the implemented `Transformer` class. The function is used to delay the import of the `Transformer` class until it is needed as well as to allow each source to prompt for any necessary credentials or arguments.
 
 ## Development
 

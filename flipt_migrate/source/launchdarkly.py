@@ -1,3 +1,5 @@
+import os
+import questionary
 import requests
 from models.flipt import (
     Collection,
@@ -12,6 +14,18 @@ from models.flipt import (
     Rule,
     Distribution,
 )
+
+
+def transformer():
+    api_key = os.getenv("LAUNCHDARKLY_API_KEY")
+    if not api_key:
+        api_key = questionary.password("LaunchDarkly API Key:").ask() or ""
+
+    project_key = os.getenv("LAUNCHDARKLY_PROJECT_KEY")
+    if not project_key:
+        project_key = questionary.text("LaunchDarkly Project Key:", "default").ask()
+
+    return Transformer(api_key, project_key)
 
 
 class Transformer:

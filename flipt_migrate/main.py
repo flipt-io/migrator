@@ -5,7 +5,7 @@ from source import launchdarkly
 from exporter import export_to_yaml
 
 # TODO: Add support for other sources
-SOURCES = ["LaunchDarkly"]
+SOURCES = {"LaunchDarkly": launchdarkly.transformer}
 
 
 def main():
@@ -15,7 +15,7 @@ def main():
     parser.add_argument(
         "--source",
         type=str,
-        choices=SOURCES,
+        choices=SOURCES.keys(),
         help="The source to migrate from.",
     )
     parser.add_argument(
@@ -39,19 +39,11 @@ def main():
     else:
         competitor = questionary.select(
             "Source:",
-            choices=SOURCES,
+            choices=SOURCES.keys(),
         ).ask()
 
-    if competitor == "LaunchDarkly":
-        api_key = os.getenv("LAUNCHDARKLY_API_KEY")
-        if not api_key:
-            api_key = questionary.password("LaunchDarkly API Key:").ask() or ""
-
-        project_key = os.getenv("LAUNCHDARKLY_PROJECT_KEY")
-        if not project_key:
-            project_key = questionary.text("LaunchDarkly Project Key:", "default").ask()
-
-        transformer = launchdarkly.Transformer(api_key, project_key)
+    if competitor in SOURCES:
+        transformer = SOURCES[competitor]()
     else:
         print("Unsupported source.")
         return
