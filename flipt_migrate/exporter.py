@@ -1,7 +1,6 @@
-import yaml
 import os
 
-from models.flipt import Collection
+from flipt_migrate.models.flipt import Collection
 from pydantic_yaml import to_yaml_str
 
 

@@ -1,14 +1,14 @@
 import os
 import questionary
 import argparse
-from source import launchdarkly
-from exporter import export_to_yaml
+from flipt_migrate.source import launchdarkly
+from flipt_migrate.exporter import export_to_yaml
 
 # TODO: Add support for other sources
 SOURCES = {"LaunchDarkly": launchdarkly.transformer}
 
 
-def main():
+def run():
     parser = argparse.ArgumentParser(
         description="Migrate from a feature flag source to Flipt."
     )
@@ -62,4 +62,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    run()

@@ -1,4 +1,4 @@
-from models.flipt import Collection
+from flipt_migrate.models.flipt import Collection
 
 
 class Transformer:

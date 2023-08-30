@@ -1,7 +1,7 @@
 import os
 import questionary
 import requests
-from models.flipt import (
+from flipt_migrate.models.flipt import (
     Collection,
     Document,
     Flag,
