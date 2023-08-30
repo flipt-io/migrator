@@ -10,6 +10,7 @@ from models.flipt import (
     Segment,
     SegmentMatchType,
     Constraint,
+    ConstraintOperator,
     ConstraintComparisonType,
     Rule,
     Distribution,
@@ -30,6 +31,14 @@ def transformer():
 
 class Transformer:
     BASE_URL = "https://app.launchdarkly.com/api/v2"
+
+    # LaunchDarkly API uses different operators for constraints
+    # We dont support all of them, so we will map them to the closest match
+    OPS = {
+        "endsWith": ConstraintOperator.suffix,
+        "startsWith": ConstraintOperator.prefix,
+        "contains": ConstraintOperator.equals,
+    }
 
     def __init__(self, api_key, project_key=None):
         self.api_key = api_key
@@ -84,7 +93,9 @@ class Transformer:
                             Constraint(
                                 type=ConstraintComparisonType.string,
                                 property=clause["attribute"],
-                                operator=clause["op"],
+                                operator=self.OPS[clause["op"]]
+                                if clause["op"] in self.OPS
+                                else clause["op"],
                                 value=clause["values"][0],
                             )
                         )
@@ -149,7 +160,7 @@ class Transformer:
                     segment = Segment(
                         key=f"{flag.key}-{flag_segment_count}",
                         name=f"{flag.name}-{flag_segment_count}",
-                        description=None,
+                        description="",
                         constraints=[],
                     )
                     flag_segment_count += 1
@@ -164,7 +175,9 @@ class Transformer:
                             Constraint(
                                 type=ConstraintComparisonType.string,
                                 property=clause["attribute"],
-                                operator=clause["op"],
+                                operator=self.OPS[clause["op"]]
+                                if clause["op"] in self.OPS
+                                else clause["op"],
                                 value=clause["values"][0],
                             )
                         )
@@ -193,7 +206,7 @@ class Transformer:
                     flag.rules.append(
                         Rule(
                             segment=segment.key,
-                            rank=None,
+                            rank=flag_segment_count,
                             distributions=distributions,
                         )
                     )

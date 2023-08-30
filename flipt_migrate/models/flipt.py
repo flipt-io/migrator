@@ -41,9 +41,26 @@ class ConstraintComparisonType(Enum):
     datetime = "DATETIME_COMPARISON_TYPE"
 
 
+class ConstraintOperator(Enum):
+    equals = "eq"
+    not_equals = "neq"
+    less_than = "lt"
+    less_than_or_equal = "lte"
+    greater_than = "gt"
+    greater_than_or_equal = "gte"
+    empty = "empty"
+    not_empty = "notempty"
+    prefix = "prefix"
+    suffix = "suffix"
+    present = "present"
+    not_present = "notpresent"
+    true = "true"
+    false = "false"
+
+
 class Constraint(BaseModel):
     property: str
-    operator: str
+    operator: ConstraintOperator = ConstraintOperator.equals
     value: str
     type: ConstraintComparisonType = ConstraintComparisonType.string
 

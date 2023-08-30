@@ -53,8 +53,12 @@ def main():
         print("No data to export.")
         return
 
-    export_to_yaml(data, path)
-    print("✅ Migration completed successfully.")
+    wrote = export_to_yaml(data, path)
+    print("\n✅ Migration completed successfully.")
+
+    print("\n📂 Exported files:")
+    for f in wrote:
+        print(f"- {f}")
 
 
 if __name__ == "__main__":
