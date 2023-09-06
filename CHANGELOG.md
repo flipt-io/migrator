@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.2](https://github.com/flipt-io/migrator/compare/v0.1.1...v0.1.2) (2023-09-06)
+
+
+### Miscellaneous Chores
+
+* release 0.1.2 ([1b4eca2](https://github.com/flipt-io/migrator/commit/1b4eca2e4fad8bb63019e247d7dd9562a0530d9e))
+
 ## [0.1.1](https://github.com/flipt-io/migrator/compare/v0.1.0...v0.1.1) (2023-08-30)
 
 
