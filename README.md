@@ -1,5 +1,7 @@
 # Flipt Migrator
 
+![PyPI - Version](https://img.shields.io/pypi/v/flipt-migrate)
+
 This is a tool to migrate feature flags from one source (e.g. competitor) to [Flipt](https://github.com/flipt-io/flipt).
 
 It works by exporting the feature flags from the source into a set of `*.features.yml` files that can then be imported into Flipt or run as the source data with Flipt in ['local' mode](https://www.flipt.io/docs/configuration/storage#local).
@@ -15,6 +17,37 @@ No guarantees are made about the correctness of the exported feature flags. It i
 ## Legal
 
 :balance_scale: This tool is not affiliated with or endorsed by any of the sources it supports. All trademarks are the property of their respective owners.
+
+## Requirements
+
+- Python 3.11+
+
+## Install
+
+### PyPI
+
+(Optional) Create a virtual environment:
+
+```shell
+python -m venv venv
+source venv/bin/activate
+```
+
+Install with pip:
+
+```shell
+pip install flipt-migrate
+```
+
+### Source
+
+Or install from source (requires [Poetry](https://python-poetry.org/) to be installed):
+
+```shell
+git clone
+cd flipt-migrate
+poetry install
+```
 
 ## Usage
 
