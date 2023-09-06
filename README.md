@@ -1,8 +1,8 @@
 # Flipt Migrator
 
-This is a tool to migrate feature flags from one source (e.g. competitor) to Flipt.
+This is a tool to migrate feature flags from one source (e.g. competitor) to [Flipt](https://github.com/flipt-io/flipt).
 
-It works by exporting the feature flags from the source into a set of `*.features.yml` files that can then be imported into Flipt or run as the source data with Flipt in ['local' mode](https://www.flipt.io/docs/configuration/storage#local)
+It works by exporting the feature flags from the source into a set of `*.features.yml` files that can then be imported into Flipt or run as the source data with Flipt in ['local' mode](https://www.flipt.io/docs/configuration/storage#local).
 
 ## Disclaimer
 
@@ -14,7 +14,7 @@ No guarantees are made about the correctness of the exported feature flags. It i
 
 ## Legal
 
-:copyright: This tool is not affiliated with or endorsed by any of the sources it supports. All trademarks are the property of their respective owners.
+:balance_scale: This tool is not affiliated with or endorsed by any of the sources it supports. All trademarks are the property of their respective owners.
 
 ## Usage
 
@@ -40,6 +40,10 @@ To export feature flags from LaunchDarkly, you will need to set the following en
 - `LAUNCHDARKLY_PROJECT_KEY` - The LaunchDarkly project key to export (optional)
 
 ## Contributing
+
+### Conventional Commits
+
+We use [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) for commit messages. This allows us to automatically generate a changelog and releases with [Release Please](https://github.com/googleapis/release-please).
 
 ### Adding a New Source
 
